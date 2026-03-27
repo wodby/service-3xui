@@ -1,0 +1,68 @@
+name: 3xui
+icon: 3xui
+type: service
+title: 3X UI
+hostname: 3xui
+containers:
+- name: 3xui
+  image: ghcr.io/mhsanaei/3x-ui
+options:
+- version: '2.8'
+  tag: 'v2.8.11'
+endpoints:
+- name: panel
+  ports:
+  - name: panel
+    number: 2053
+    protocol: http
+labels:
+- 3xui
+
+volumes:
+- name: data
+  title: Data
+  optional: true
+  helm: 
+# @todo: remove labels if imports added
+    labels: dataPersistence.labels  
+    values:
+    - name: dataPersistence.enabled
+      value: true
+    - name: dataPersistence.size
+      value: '{{volumes.dataPersistence.size}}Gi'
+    # mandatory to use existing claim since this volume will have import function
+    # we will mount different claim after import and doing it through sts's volumeclaimtemplates is not supported
+# disabled due to missing imports (required for this to work – we create PVC manually instead of using volumeClaimTemplate)
+# @todo: remove labels if imports added
+#    - name: dataPersistence.existingClaim
+#      value: '{{volumes.data.claim}}'
+- name: certs
+  title: Certs
+  optional: true
+  helm: 
+# @todo: remove labels if imports added
+    labels: certPersistence.labels  
+    values:
+    - name: certPersistence.enabled
+      value: true
+    - name: certPersistence.size
+      value: '{{volumes.certPersistence.size}}Gi'
+    # mandatory to use existing claim since this volume will have import function
+    # we will mount different claim after import and doing it through sts's volumeclaimtemplates is not supported
+# disabled due to missing imports (required for this to work – we create PVC manually instead of using volumeClaimTemplate)
+# @todo: remove labels if imports added
+#    - name: certPersistence.existingClaim
+#      value: '{{volumes.certs.claim}}'
+
+helm:
+  name: wodby
+  source: oci://registry-1.docker.io/wodby/3xui
+  chart: oci://registry-1.docker.io/wodby/3xui
+  version: 0.1.0
+  configurations:
+  - container: 3xui
+    labels: podLabels
+    annotations: podAnnotations
+    env: envVars
+    resources: resources
+
