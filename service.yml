@@ -1,5 +1,5 @@
 name: 3xui
-icon: 3xui
+icon: xui
 type: service
 title: 3X UI
 hostname: xui
@@ -21,7 +21,7 @@ labels:
 volumes:
 - name: data
   title: Data
-  optional: true
+  size: 1
   helm: 
 # @todo: remove labels if imports added
     labels: dataPersistence.labels  
@@ -37,8 +37,8 @@ volumes:
 #    - name: dataPersistence.existingClaim
 #      value: '{{volumes.data.claim}}'
 - name: certs
+  size: 1
   title: Certs
-  optional: true
   helm: 
 # @todo: remove labels if imports added
     labels: certPersistence.labels  
