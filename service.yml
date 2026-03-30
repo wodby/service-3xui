@@ -2,7 +2,6 @@ name: 3xui
 icon: xui
 type: service
 title: 3X UI
-hostname: xui
 containers:
 - name: 3xui
   image: ghcr.io/mhsanaei/3x-ui
