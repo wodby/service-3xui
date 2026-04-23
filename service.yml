@@ -2,9 +2,6 @@ name: 3xui
 icon: xui
 type: service
 title: 3X UI
-containers:
-- name: 3xui
-  image: ghcr.io/mhsanaei/3x-ui
 options:
 - version: '2.8'
   tag: 'v2.8.11'
@@ -21,9 +18,9 @@ volumes:
 - name: data
   title: Data
   size: 1
-  helm: 
+  helm:
 # @todo: remove labels if imports added
-    labels: dataPersistence.labels  
+    labels: dataPersistence.labels
     values:
     - name: dataPersistence.enabled
       value: true
@@ -38,9 +35,9 @@ volumes:
 - name: certs
   size: 1
   title: Certs
-  helm: 
+  helm:
 # @todo: remove labels if imports added
-    labels: certPersistence.labels  
+    labels: certPersistence.labels
     values:
     - name: certPersistence.enabled
       value: true
@@ -58,12 +55,18 @@ helm:
   source: oci://registry-1.docker.io/wodby/3xui
   chart: oci://registry-1.docker.io/wodby/3xui
   version: 0.1.0
-  configurations:
-  - container: 3xui
+workloads:
+- id: main
+  kind: statefulset
+  primary: true
+  containers:
+  - name: 3xui
+    image: ghcr.io/mhsanaei/3x-ui
+    helm:
+      resources: resources
+      env: envVars
+      mounts: extraVolumeMounts
+  helm:
     labels: podLabels
     annotations: podAnnotations
-    env: envVars
-    resources: resources
     volumes: extraVolumes
-    mounts: extraVolumeMounts
-
