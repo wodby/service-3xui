@@ -55,10 +55,15 @@ helm:
   source: oci://registry-1.docker.io/wodby/3xui
   chart: oci://registry-1.docker.io/wodby/3xui
   version: 0.1.0
+
 workloads:
 - id: main
   kind: statefulset
   primary: true
+  helm:
+    labels: podLabels
+    annotations: podAnnotations
+    volumes: extraVolumes
   containers:
   - name: 3xui
     image: ghcr.io/mhsanaei/3x-ui
@@ -66,7 +71,3 @@ workloads:
       resources: resources
       env: envVars
       mounts: extraVolumeMounts
-  helm:
-    labels: podLabels
-    annotations: podAnnotations
-    volumes: extraVolumes
