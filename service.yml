@@ -26,6 +26,8 @@ volumes:
       value: true
     - name: dataPersistence.size
       value: '{{volumes.data.size}}Gi'
+    - name: dataPersistence.storageClass
+      value: '{{volumes.data.storageClassName}}'
     # mandatory to use existing claim since this volume will have import function
     # we will mount different claim after import and doing it through sts's volumeclaimtemplates is not supported
 # disabled due to missing imports (required for this to work – we create PVC manually instead of using volumeClaimTemplate)
@@ -43,6 +45,8 @@ volumes:
       value: true
     - name: certPersistence.size
       value: '{{volumes.certs.size}}Gi'
+    - name: certPersistence.storageClass
+      value: '{{volumes.certs.storageClassName}}'
     # mandatory to use existing claim since this volume will have import function
     # we will mount different claim after import and doing it through sts's volumeclaimtemplates is not supported
 # disabled due to missing imports (required for this to work – we create PVC manually instead of using volumeClaimTemplate)
