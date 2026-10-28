@@ -8,3 +8,7 @@ What Wodby sets up for 3X UI on this service. It runs the upstream `ghcr.io/mhsa
 - Panel settings, including the panel port and path, are stored in the database and changed in the panel, not through environment variables. Keep the panel port at 2053, since the endpoint and the health checks use it.
 - The container gets `XUI_ENABLE_FAIL2BAN` and `XRAY_VMESS_AEAD_FORCED` from the Helm chart. Other variables are added on the service and applied by a deployment.
 - The manifest declares no links, settings, backups, imports or actions.
+
+## Basic auth
+
+Wodby protects this service's public domains with basic auth by default: each app service of it gets its own generated password, which members reveal on the environment's Domains > Auths page. Services inside the environment reach it directly, without the password. The protection can be switched off when the app is created, or later by deleting the entry; a stack can also turn the default off.
