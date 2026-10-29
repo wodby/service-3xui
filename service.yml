@@ -1,6 +1,7 @@
 name: 3xui
 icon: xui
 type: service
+basicAuth: true
 title: 3X UI
 guidance: GUIDANCE.md
 options:
