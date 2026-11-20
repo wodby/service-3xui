@@ -7,6 +7,7 @@ guidance: GUIDANCE.md
 options:
 - version: '2.8'
   tag: 'v2.8.11'
+  digest: sha256:34c46ea6d838df981c4760bd1fe442413c2b99bbe4bb49dfa3d1bfb8a8a92496
 endpoints:
 - name: panel
   ports:
